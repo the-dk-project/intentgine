@@ -1,0 +1,6 @@
+pdfminer.six
+pandas
+configparser
+sqlalchemy
+PyPDF2
+xlsxwriter
