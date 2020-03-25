@@ -41,4 +41,7 @@ if __name__ == '__main__':
     else:
         word_count(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
 
-#python ws_demo.py '1Ub6DCJTIw0U5XGUEPChydn6bmKV8VCD_' 'sample_1.pdf' 'C:\\Users\\donnv\\Desktop\\result.xlsx' 3
+#python ws_demo.py '1Ub6DCJTIw0U5XGUEPChydn6bmKV8VCD_' 'PredictiveVsAnticipatory.pdf' 'C:\\Users\\donnv\\Desktop\\PredictiveVsAnticipatory.xlsx' 1
+#python ws_demo.py '1Ub6DCJTIw0U5XGUEPChydn6bmKV8VCD_' 'ScalingDataIntegration.pdf' 'C:\\Users\\donnv\\Desktop\\ScalingDataIntegration.xlsx' 2
+#python ws_demo.py '1Ub6DCJTIw0U5XGUEPChydn6bmKV8VCD_' 'SuccessfulBigDataJourney.pdf' 'C:\\Users\\donnv\\Desktop\\SuccessfulBigDataJourney.xlsx' 3
+#python ws_demo.py '1Ub6DCJTIw0U5XGUEPChydn6bmKV8VCD_' 'AnalyzeMoreData.pdf' 'C:\\Users\\donnv\\Desktop\\AnalyzeMoreData.xlsx' 4

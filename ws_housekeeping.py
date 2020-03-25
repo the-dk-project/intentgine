@@ -10,6 +10,7 @@ QA_id = '1ZS6X6arlcvKTTgjZOFEyfsWvtpAycz6p'
 HUB_id = '1lH7g4AsUbfwNwaL4x6bW5bU_LpsARQk_'
 SENT_id = '1lH7g4AsUbfwNwaL4x6bW5bU_LpsARQk_'
 
+gdrive.process_ingestion(TCI_id, CURRENT_DATE, 'prod', 'delivered_leads', 'MySQL', ingestion.TCI, dataframe.tci_dataframe, 0)
 gdrive.process_ingestion(TCI_id, CURRENT_DATE, 'staging', 'delivered_leads', 'MySQL', ingestion.TCI, dataframe.tci_dataframe, 0)
 #gdrive.process_ingestion(HUB_id, '2020-03-09', 'staging', 'blacklist', 'MySQL', HUB, dataframe.hub_dataframe, 0)
 #gdrive.process_ingestion(SENT_id, '2020-03-09', 'staging', 'sent_campaign', 'MySQL', SENT, dataframe.sent_dataframe, 1)
