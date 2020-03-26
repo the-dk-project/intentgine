@@ -29,3 +29,19 @@ def remove_excluded_words(input_string, uw_dict):
 
     finally:
         return output_string
+
+def domain_url(url):
+    url = url.replace('https://', '')
+    url = url.replace('http://', '')
+    url = url.replace('www-beta.', '')
+    url = url.replace('www.', '')
+    url = url.replace('www1.', '')
+    url = url.replace('www2.', '')
+    url = url.replace('www3.', '')
+    url = url.replace('www4.', '')
+    url = url.replace('www5.', '')
+    url = url.replace('www6.', '')
+    url = url.replace('www7.', '')
+    url = url.replace('www8.', '')
+
+    return url
