@@ -26,7 +26,11 @@ def excel_writer(input_file, output_file, industry, campaign_name, internal_id, 
         if i != 0:
             acct_name = sheet.cell_value(i, col)
             url = sheet.cell_value(i, col+1)
+<<<<<<< HEAD
             url = cleaner.domain_url(str(url))
+=======
+            url = cleaner.domain_url(url)
+>>>>>>> 78337c77dba0767c4168c30fd4f1e3e7585cd5b7
             domain = url.split('/')[0]
 
             worksheet.write(i, col, acct_name)
@@ -39,4 +43,8 @@ def excel_writer(input_file, output_file, industry, campaign_name, internal_id, 
 
     workbook.close()
 
+<<<<<<< HEAD
 excel_writer('C:\\Users\\donnv\\Desktop\\test.xlsx', 'C:\\Users\\donnv\\Desktop\\20-1174-4 Whitelist.xlsx', '', 'TCI 20-1174-4', '2011744', '2011744')
+=======
+excel_writer('C:\\Users\\donnv\\Desktop\\test.xlsx', 'C:\\Users\\donnv\\Desktop\\output.xlsx', 'industry', 'campaign_name', 'internal_id', 'external_id')
+>>>>>>> 78337c77dba0767c4168c30fd4f1e3e7585cd5b7
