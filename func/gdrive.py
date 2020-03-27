@@ -2,7 +2,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 from pydrive.drive import GoogleDrive
 from pydrive.auth import GoogleAuth
 from datetime import datetime, timedelta
-from func import db, audit
+from func import db, audit, notif
 import pandas as pd
 import gspread
 import os
@@ -29,9 +29,7 @@ def spreadsheet(file):
 
 
 def excel_to_list(excel_file, sheet, class_name):
-    print("Reading excel file {}".format(excel_file))
     df_source = pd.read_excel(excel_file, sheet_name=sheet)
-    print("Converting dataframe to list.")
     data = df_source.values.tolist()
     if excel_file:
         os.remove(excel_file)
@@ -63,19 +61,25 @@ def process_ingestion(directory_id, process_date, schema, target_name, target_ty
         campaign = title.split('}')[0].replace('{', '')
         modified_date_ts = datetime.strptime(file['modifiedDate'], '%Y-%m-%dT%H:%M:%S.%fZ') + timedelta(hours=8)
         modified_datetime = modified_date_ts.strftime('%Y-%m-%d %H:%M:%S.%f')
-        modified_date = modified_date_ts.strftime('%Y-%m-%d')
+        #modified_date = modified_date_ts.strftime('%Y-%m-%d')
+        modified_date = modified_date_ts.strftime('%Y-%m')
 
         if str(modified_date) == str(process_date):
 
             print('Downloading {} from GDrive.'.format(title))
             file.GetContentFile(title)
-            data_list = excel_to_list(title, sheet, class_name)
-            dataframe = list_to_db(data_list, schema, target_name, method)
-            count = len(dataframe) or 0
+            try:
+                data_list = excel_to_list(title, sheet, class_name)
+                dataframe = list_to_db(data_list, schema, target_name, method)
+                count = len(dataframe) or 0
 
-            tmp = {key: {'file_name': title, 'campaign': campaign, 'type': file['fileExtension'],
-                         'date': str(modified_datetime), 'count': count}}
-            audit.audit(tmp, target_name, target_type)
+                tmp = {key: {'file_name': title, 'campaign': campaign, 'type': file['fileExtension'],
+                            'date': str(modified_datetime), 'count': count, 'source_id': key}}
+                audit.audit(tmp, target_name, target_type)
+            except Exception as e:
+                print(e)
+                notif.ingestion_mail(title)
+                pass
 
 def dl_file_name(directory_id, file_name):
     g_drive = google_auth()

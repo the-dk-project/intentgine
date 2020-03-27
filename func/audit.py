@@ -14,7 +14,7 @@ def audit(data, target_name, target_type):
 
     for key in data.keys():
         current_datetime = datetime.now()
-        print("Processing: '{0}' || {1} Rows".format(data[key]['campaign'], data[key]['count']))
+        print("Processing: '{0}' || {1} Rows || {2}".format(data[key]['campaign'], data[key]['count'], data[key]['source_id']))
 
         # Make generic
         cxn.execute(dedup)

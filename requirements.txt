@@ -37,3 +37,4 @@ urllib3                  1.25.8
 wrapt                    1.11.2
 xlrd                     1.2.0
 XlsxWriter               1.2.8
+cryptography             2.8
