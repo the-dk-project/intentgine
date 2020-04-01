@@ -61,8 +61,7 @@ def process_ingestion(directory_id, process_date, schema, target_name, target_ty
         campaign = title.split('}')[0].replace('{', '')
         modified_date_ts = datetime.strptime(file['modifiedDate'], '%Y-%m-%dT%H:%M:%S.%fZ') + timedelta(hours=8)
         modified_datetime = modified_date_ts.strftime('%Y-%m-%d %H:%M:%S.%f')
-        #modified_date = modified_date_ts.strftime('%Y-%m-%d')
-        modified_date = modified_date_ts.strftime('%Y-%m')
+        modified_date = modified_date_ts.strftime('%Y-%m-%d')
 
         if str(modified_date) == str(process_date):
 
