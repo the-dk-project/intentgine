@@ -22,7 +22,8 @@ def pdf_report(output_path, data, info, title):
 
     row = 0
     col = 0
-    for k, v in data.items():
+    sorted_dict = {k: v for k, v in sorted(data.items(), key=lambda item: item[1], reverse=True)}
+    for k, v in sorted_dict.items():
         key = str(k)
         if len(key) != 1:
             worksheet.write(row, col, k)

@@ -27,4 +27,4 @@ def word_count(directory_id, output_path, elements):
         pdf_report(output_path, results, info, title)
         os.remove(title)
 
-word_count('1Ub6DCJTIw0U5XGUEPChydn6bmKV8VCD_', 'C:\\Users\\donnv\\Desktop\\1 Keyword\\', 1)
+word_count('1Ub6DCJTIw0U5XGUEPChydn6bmKV8VCD_', 'C:\\Users\\donnv\\Desktop\\2 Keywords\\', 2)
