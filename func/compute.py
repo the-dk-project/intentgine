@@ -29,7 +29,8 @@ def string_counter(input_string, element):
     ctr = 0
     e = int(element)
     word_dict = dict()
-    words = str(input_string).split(" ")
+    words = str(input_string).lower()
+    words = words.split(" ")
 
     for word in words:
         word.lower

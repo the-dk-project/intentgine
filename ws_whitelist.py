@@ -39,4 +39,4 @@ def excel_writer(input_file, output_file, industry, campaign_name, internal_id, 
 
     workbook.close()
 
-excel_writer('C:\\Users\\donnv\\Desktop\\test.xlsx', 'C:\\Users\\donnv\\Desktop\\5855 Whitelist.xlsx', '', 'PURE B2B 5855', '5855', '5855')
+excel_writer('C:\\Users\\donnv\\Desktop\\test.xlsx', 'C:\\Users\\donnv\\Desktop\\5855 Whitelist.xlsx', '', 'PURE B2B 004949', '004949', '004949')
