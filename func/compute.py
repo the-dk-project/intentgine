@@ -17,10 +17,11 @@ def word_count(input_string):
     word_dict = dict()
 
     for word in words:
-        if word in word_dict.keys():
-            word_dict[word] += 1
+        key = str(word).lower
+        if key in word_dict.keys():
+            word_dict[key] += 1
         else:
-            word_dict[word] = 1
+            word_dict[key] = 1
 
     return word_dict
 
@@ -31,13 +32,13 @@ def string_counter(input_string, element):
     words = str(input_string).split(" ")
 
     for word in words:
+        word.lower
         output_string = str(" ".join(words[ctr:ctr+e]))
         if ctr <= (len(words) - e):
             if output_string in word_dict.keys():
                 word_dict[output_string] += 1
             else:
                 word_dict[output_string] = 1
-                word_dict[word] = 1
         ctr += 1
 
     return word_dict

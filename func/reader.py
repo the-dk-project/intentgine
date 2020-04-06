@@ -33,7 +33,9 @@ def file_to_dict(input_file, delimiter=" "):
 def pdf_reader(input_file):
     pdf_file = open(input_file, 'rb')
     read_pdf = PdfFileReader(pdf_file, strict=False)
-    count = read_pdf.numPages
+    if read_pdf.isEncrypted:
+        read_pdf.decrypt('')
+    count = read_pdf.numPages(password='')
     content = ""
     for i in range(count):
         page = read_pdf.getPage(i)

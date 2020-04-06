@@ -61,8 +61,7 @@ def process_ingestion(directory_id, process_date, schema, target_name, target_ty
         campaign = title.split('}')[0].replace('{', '')
         modified_date_ts = datetime.strptime(file['modifiedDate'], '%Y-%m-%dT%H:%M:%S.%fZ') + timedelta(hours=8)
         modified_datetime = modified_date_ts.strftime('%Y-%m-%d %H:%M:%S.%f')
-        #modified_date = modified_date_ts.strftime('%Y-%m-%d')
-        modified_date = modified_date_ts.strftime('%Y-%m')
+        modified_date = modified_date_ts.strftime('%Y-%m-%d')
 
         if str(modified_date) == str(process_date):
 
@@ -91,3 +90,16 @@ def dl_file_name(directory_id, file_name):
         if title == file_name:
             print('Downloading {} from GDrive.'.format(title))
             file.GetContentFile(title)
+
+def dl_dir_files(directory_id):
+    g_drive = google_auth()
+    titles = list()
+
+    file_list = g_drive.ListFile({'q': "'{}' in parents and trashed=false".format(directory_id)}).GetList()
+    for file in sorted(file_list, key=lambda x: x['title']):
+
+        print('Downloading {} from GDrive.'.format(file['title']))
+        file.GetContentFile(file['title'])
+        titles.append(file['title'])
+
+    return titles

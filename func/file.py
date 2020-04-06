@@ -14,17 +14,20 @@ def check_file(input_file):
         print(datetime.now(), "ERROR: {} missing.".format(input_file))
         exit(1)
 
-def pdf_report(excel_file, data, info):
-    workbook = xlsxwriter.Workbook(excel_file)
+def pdf_report(output_path, data, info, title):
+    file_name = str(title).split('.')
+    workbook = xlsxwriter.Workbook(output_path + file_name[0] + ".xlsx")
     worksheet = workbook.add_worksheet("Sheet1")
     w2 = workbook.add_worksheet("Sheet2")
 
     row = 0
     col = 0
     for k, v in data.items():
-        worksheet.write(row, col, k)
-        worksheet.write(row, col+1, v)
-        row += 1
+        key = str(k)
+        if len(key) != 1:
+            worksheet.write(row, col, k)
+            worksheet.write(row, col+1, v)
+            row += 1
 
     i_row = 0
     i_col = 0
