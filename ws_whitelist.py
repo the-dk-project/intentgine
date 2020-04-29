@@ -1,4 +1,4 @@
-from func import cleaner
+from func.t_analysis import cleaner
 from urllib.parse import urlparse
 import xlsxwriter
 import xlrd

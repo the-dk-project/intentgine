@@ -2,7 +2,8 @@ from oauth2client.service_account import ServiceAccountCredentials
 from pydrive.drive import GoogleDrive
 from pydrive.auth import GoogleAuth
 from datetime import datetime, timedelta
-from func import db, audit, notif
+from func import db, notif
+from func.ingestion import audit
 import pandas as pd
 import gspread
 import os
@@ -80,10 +81,8 @@ def process_ingestion(directory_id, process_date, schema, target_name, target_ty
                 notif.ingestion_mail(title)
                 pass
 
-def dl_file_name(directory_id, file_name):
-    g_drive = google_auth()
-
-    file_list = g_drive.ListFile({'q': "'{}' in parents and trashed=false".format(directory_id)}).GetList()
+def dl_file_name(g_auth, directory_id, file_name):
+    file_list = g_auth.ListFile({'q': "'{}' in parents and trashed=false".format(directory_id)}).GetList()
     for file in sorted(file_list, key=lambda x: x['title']):
         title = str(file['title'])
 
@@ -91,15 +90,39 @@ def dl_file_name(directory_id, file_name):
             print('Downloading {} from GDrive.'.format(title))
             file.GetContentFile(title)
 
-def dl_dir_files(directory_id):
-    g_drive = google_auth()
+def dl_file_date(g_auth, directory_id, file_date):
+    file_list = g_auth.ListFile({'q': "'{}' in parents and trashed=false".format(directory_id)}).GetList()
+    for file in sorted(file_list, key=lambda x: x['title']):
+        title = str(file['title'])
+        modified_date_ts = datetime.strptime(file['modifiedDate'], '%Y-%m-%dT%H:%M:%S.%fZ') + timedelta(hours=8)
+        modified_date = modified_date_ts.strftime('%Y-%m-%d')
+
+        if str(modified_date) == str(file_date):
+            print('Downloading {} from GDrive.'.format(title))
+            file.GetContentFile(title)
+
+def dl_dir_files(g_auth, directory_id):
     titles = list()
 
-    file_list = g_drive.ListFile({'q': "'{}' in parents and trashed=false".format(directory_id)}).GetList()
+    file_list = g_auth.ListFile({'q': "'{}' in parents and trashed=false".format(directory_id)}).GetList()
     for file in sorted(file_list, key=lambda x: x['title']):
 
         print('Downloading {} from GDrive.'.format(file['title']))
         file.GetContentFile(file['title'])
         titles.append(file['title'])
+
+    return titles
+
+def list_files(g_auth, directory_id, file_date):
+    titles = list()
+
+    file_list = g_auth.ListFile({'q': "'{}' in parents and trashed=false".format(directory_id)}).GetList()
+    for file in sorted(file_list, key=lambda x: x['title']):
+        title = str(file['title'])
+        modified_date_ts = datetime.strptime(file['modifiedDate'], '%Y-%m-%dT%H:%M:%S.%fZ') + timedelta(hours=8)
+        modified_date = modified_date_ts.strftime('%Y-%m-%d')
+
+        if str(modified_date) == str(file_date):
+            titles.append(title)
 
     return titles

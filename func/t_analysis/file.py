@@ -3,7 +3,7 @@ import xlsxwriter
 from datetime import datetime
 
 def file_to_str(directory, file_name):
-    file = directory + "\\conf\\" + file_name
+    file = directory + file_name
     string = open(file, 'r').read()
 
     return string

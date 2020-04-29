@@ -1,7 +1,7 @@
 import smtplib, ssl
 from datetime import date
 from email.mime.text import MIMEText
-from func.audit import err_status
+from func.ingestion import audit
 
 def ingestion_mail(campaign):
     current_date = date.today()
