@@ -5,13 +5,13 @@ import os
 
 def audit(data, target_name, target_type):
     cxn = db.db_connect("local_mysql")
-    conf_dir = 'd:/project/files/'
+    conf_dir = os.getcwd() + "//files//"
 
-    dedup = file.file_to_str(conf_dir, 'tci/dedup.sql')
-    row_count = file.file_to_str(conf_dir, 'tci/row_count.sql')
-    audit_ingest = file.file_to_str(conf_dir, 'audit/audit_ingest.sql')
-    status_count = file.file_to_str(conf_dir, 'audit/status_count.sql')
-    status_update = file.file_to_str(conf_dir, 'audit/status_update.sql')
+    dedup = file.file_to_str(conf_dir, 'tci//dedup.sql')
+    row_count = file.file_to_str(conf_dir, 'tci//row_count.sql')
+    audit_ingest = file.file_to_str(conf_dir, 'audit//audit_ingest.sql')
+    status_count = file.file_to_str(conf_dir, 'audit//status_count.sql')
+    status_update = file.file_to_str(conf_dir, 'audit//status_update.sql')
 
     for key in data.keys():
         current_datetime = datetime.now()

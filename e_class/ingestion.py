@@ -152,3 +152,17 @@ class SENT(object):
         self.email_status = email_status
         self.client_name = 'EXT'
         self.delivery_date = str(date.today() - timedelta(days=1))
+
+class delivered_leads(object):
+    def __init__(self, first_name, last_name, email, phone, country, company, title, industry, job_function, client):
+        self.first_name = first_name
+        self.last_name = last_name
+        self.email = email
+        self.phone = phone
+        self.country = country
+        self.company = company
+        self.title = title
+        self.industry = industry
+        self.job_function = job_function
+        self.client = client
+        self.delivery_date = str(date.today() - timedelta(days=1))

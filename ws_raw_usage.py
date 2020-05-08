@@ -5,11 +5,10 @@ from func.t_analysis import file
 import os
 
 # Constant
-#yesterday = date.today() - timedelta(days=1)
-yesterday = '2020-04-25'
+yesterday = date.today() - timedelta(days=1)
 data_packets = '1vsIFKLDnRxJupeXnf3WecKBBdVDYZuIc'
 hygiene_tool = '1xPFwWw1ITuhboSkeau7NgwBJsQxKBezL'
-sql_dir = 'd:/project/files/raw_usage/'
+sql_dir = os.getcwd() + "\\files\\raw_usage\\"
 
 # Db
 cxn = db.db_connect("local_mysql")

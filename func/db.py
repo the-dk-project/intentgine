@@ -18,7 +18,7 @@ def db_config(conf, section):
     return db
 
 def db_connect(section):
-    db_conf = os.getcwd().replace("test", "conf") + "\\files\\conf\\" + "db_config.ini"
+    db_conf = os.getcwd() + "\\files\\conf\\" + "db_config.ini"
     db_param = db_config(db_conf, section)
     connection_str = "mysql+pymysql://{0}:{1}@{2}/{3}".format(
         db_param['user'], db_param['password'], db_param['host'], db_param['database']
