@@ -44,7 +44,3 @@ for raw_file in raw_files:
             delivered_leads[k] = df[col]
         delivered_leads['client'] = 'IMR'
         delivered_leads['delivery_date'] = yesterday
-
-    for k, v in delivered_leads.items():
-        query = "insert into prod.delivered_leads(email, first_name, last_name, phone, country, title, company, industry, job_function, client, delivery_date) values('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}', '{10}')".format(delivered_leads['email'], delivered_leads['first_name'], delivered_leads['last_name'], delivered_leads['phone'], delivered_leads['country'], delivered_leads['title'], )
-        cxn.execute(query)
