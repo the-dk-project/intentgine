@@ -1,8 +1,7 @@
-import email, getpass, imaplib, os
+from func import db
+import os
 
-user = 'donn.victory@intentgine.com'
-pwd = 'intent2020'
+dir_id = db.load_directory("columns")
 
-# connecting to the gmail imap server
-m = imaplib.IMAP4_SSL("imap.gmail.com")
-m.login(user,pwd)
+for i in dir_id['first_names']:
+    print(i)

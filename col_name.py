@@ -1,5 +1,7 @@
 from func import db, gdrive
+from func.t_analysis import file
 import pandas as pd
+import os
 
 first_names = ['First Name', 'first_name', 'first name', 'FirstName', 'first', 'FName']
 last_names = ['Last Name', 'last_name', 'last name', 'LastName', 'last', 'LName']
@@ -9,14 +11,15 @@ countries = ['Country', 'Country Code', 'country']
 companies = ['Company Name', 'company', 'Company']
 titles = ['Title', 'title', 'Job Title']
 industries = ['Industry', 'industry']
-job_functions = ['Job Function', 'job_function']
+job_functions = ['Job Function', 'job_function', 'Job Department']
 master_list = {'first_name': first_names, 'last_name': last_names, 'email': emails, 'phone': phones, 'country': countries, 'company': companies, 'title': titles, 'industry': industries, 'job_function': job_functions}
-delivered_leads = dict()
 
 cxn = db.db_connect("local_mysql")
+dir_id = db.load_directory()
 g_auth = gdrive.google_auth()
+conf_dir = os.getcwd() + "//files//"
 intent_macro = '1bSP_i6b542eMBC_kiDxeLHjIFUKzzA_C'
-yesterday = '2020-05-06'
+yesterday = '2020-05-08'
 
 def build_columns(df, col_list):
     col = ''
@@ -26,25 +29,34 @@ def build_columns(df, col_list):
     
     return col
 
-raw_files = gdrive.list_files(g_auth, intent_macro, yesterday)
+raw_files = gdrive.list_files(g_auth, dir_id['imr'], yesterday)
 
 for raw_file in raw_files:
     gdrive.dl_file_name(g_auth, intent_macro, raw_file)
+    dl = dict()
+    data = dict()
     df = pd.DataFrame()
     if ".csv" in raw_file:
         df = pd.read_csv(raw_file)
     else:
         df = pd.read_excel(raw_file)
 
+    # Build columns
     for k, v in master_list.items():
         col = build_columns(df, v)
-        if col == '':
-            delivered_leads[k] = col
-        else:
-            delivered_leads[k] = df[col]
-        delivered_leads['client'] = 'IMR'
-        delivered_leads['delivery_date'] = yesterday
+        dl[k] = col
+        
+    # Build dict
+    for index, row in df.iterrows():
+        for k, v in dl.items():
+            if v == '':
+                data[k] = ''
+            else:
+                data[k] = row[v]
+            data['client'] = 'IMR'
+            data['delivery_date'] = yesterday
 
-    for k, v in delivered_leads.items():
-        query = "insert into prod.delivered_leads(email, first_name, last_name, phone, country, title, company, industry, job_function, client, delivery_date) values('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}', '{10}')".format(delivered_leads['email'], delivered_leads['first_name'], delivered_leads['last_name'], delivered_leads['phone'], delivered_leads['country'], delivered_leads['title'], )
-        cxn.execute(query)
+        query = file.file_to_str(conf_dir, 'delivered_leads//insert.sql')
+        cxn.execute(query.format(data['email'], data['first_name'], data['last_name'], data['phone'], data['country'], data['title'], data['company'], data['industry'], data['job_function'], data['client'], data['delivery_date']))
+
+    os.remove(raw_file)
