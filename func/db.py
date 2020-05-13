@@ -3,7 +3,7 @@ from sqlalchemy import create_engine
 import os
 
 
-def db_config(conf, section):
+def config_parser(conf, section):
     parser = ConfigParser()
     parser.read(conf)
 
@@ -19,7 +19,7 @@ def db_config(conf, section):
 
 def db_connect(section):
     db_conf = os.getcwd() + "\\files\\conf\\" + "db_config.ini"
-    db_param = db_config(db_conf, section)
+    db_param = config_parser(db_conf, section)
     connection_str = "mysql+pymysql://{0}:{1}@{2}/{3}".format(
         db_param['user'], db_param['password'], db_param['host'], db_param['database']
         )
@@ -27,3 +27,10 @@ def db_connect(section):
     cxn = engine.connect()
 
     return cxn
+
+def load_directory(section):
+    conf = os.getcwd() + "\\files\\conf\\" + "conf.ini"
+    param = config_parser(conf, section)
+
+    return param
+    
