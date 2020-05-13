@@ -1,3 +1,3 @@
 insert into prod.delivered_leads
-(email, first_name, last_name, phone, country, title, company, industry, job_function, client, delivery_date)
-values('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}')
+(campaign, email, first_name, last_name, phone, country, title, company, industry, job_function, client, delivery_date)
+values('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}')

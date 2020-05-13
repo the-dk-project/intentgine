@@ -1,7 +1,3 @@
-from func import db
-import os
+import pandas as pd
 
-dir_id = db.load_directory("columns")
-
-for i in dir_id['first_names']:
-    print(i)
+z = pd.read_csv('Lead Delivery Report_ Suse_ 11 Leads 04302020.csv', encoding="ISO-8859-1", engine="python")
