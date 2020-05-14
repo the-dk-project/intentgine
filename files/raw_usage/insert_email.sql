@@ -1,2 +1,2 @@
-insert into prod.raw_leads (email)
+insert into public.raw_leads (email)
 values ("{}")

@@ -47,6 +47,9 @@ def run_delivered_leads(client_name, process_date):
                     new_v = v.replace("\'", "\\\'")
                     data[k] = new_v
             
+            if data['email'] == '':
+                notif.ingestion_mail("No email on {}".format(title))
+
             try:
                 query = file.file_to_str(conf_dir, 'delivered_leads//insert.sql')
                 cxn.execute(query.format(file_name, data['email'], data['first_name'], data['last_name'], data['phone'], data['country'], data['title'], data['company'], data['industry'], data['job_function'], data['client'], data['delivery_date']))

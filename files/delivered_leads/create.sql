@@ -1,5 +1,5 @@
-create table prod.delivered_leads(
-	id int not null primary key auto_increment,
+create table public.delivered_leads(
+	id SERIAL,
     campaign varchar(250),
 	email varchar(250),
     first_name varchar(250),
@@ -12,6 +12,6 @@ create table prod.delivered_leads(
     job_function varchar(250),
     client varchar(250),
     delivery_date date,
-    insert_dttm timestamp NOT NULL DEFAULT current_timestamp,
-    update_dttm timestamp NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp
+    insert_dttm timestamp NOT NULL DEFAULT NOW(),
+    update_dttm timestamp NOT NULL DEFAULT NOW()
 )
