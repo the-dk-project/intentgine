@@ -48,7 +48,7 @@ def run_delivered_leads(client_name, process_date):
                     data[k] = new_v
             
             if data['email'] == '':
-                notif.ingestion_mail("No email on {}".format(title))
+                notif.ingestion_mail("No email on {}".format(file_name))
 
             try:
                 query = file.file_to_str(conf_dir, 'delivered_leads//insert.sql')
